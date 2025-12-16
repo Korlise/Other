@@ -68,7 +68,6 @@ Is my other files.
 Эти скрипты созданы для личного использования и обучения.  
 Автор не несёт ответственности за возможный ущерб от неправильного использования.
 ENGLISH-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Windows BAT Utilities
 
 A collection of console scripts for automating routine tasks in Windows. Each file solves a specific problem — from system administration to gaming optimization.
 
