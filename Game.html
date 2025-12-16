@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Угадай число</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin: 15px 0;
+            font-weight: bold;
+            min-height: 20px;
+        }
+        .attempts {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Угадай число!</h1>
+        <p>Я загадал число от 1 до 100. Попробуй отгадать!</p>
+        
+        <input type="number" id="guessInput" placeholder="Введи число">
+        <button onclick="checkGuess()">Проверить</button>
+        
+        <div id="message" class="message"></div>
+        <div id="attempts" class="attempts"></div>
+        
+        <button onclick="restartGame()">Начать заново</button>
+    </div>
+
+    <script>
+        // Глобальные переменные
+        let secretNumber;
+        let attempts;
+
+        // Инициализация игры
+        function initGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('message').textContent = '';
+            document.getElementById('attempts').textContent = 'Попыток: 0';
+            document.getElementById('guessInput').value = '';
+        }
+
+        // Проверка ввода игрока
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById('guessInput').value);
+            
+            // Проверка на корректный ввод
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                showMessage('Введи число от 1 до 100!', 'red');
+                return;
+            }
+            
+            attempts++;
+            document.getElementById('attempts').textContent = `Попыток: ${attempts}`;
+            
+            if (userGuess === secretNumber) {
+                showMessage(`Поздравляю! Ты угадал число ${secretNumber} за ${attempts} попыток!`, 'green');
+                document.getElementById('guessInput').disabled = true;
+            } else if (userGuess < secretNumber) {
+                showMessage('Слишком мало! Попробуй больше.', 'blue');
+            } else {
+                showMessage('Слишком много! Попробуй меньше.', 'orange');
+            }
+        }
+
+        // Вывод сообщения
+        function showMessage(text, color) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = text;
+            messageElement.style.color = color;
+        }
+
+        // Перезапуск игры
+        function restartGame() {
+            initGame();
+            document.getElementById('guessInput').disabled = false;
+        }
+
+        // Запуск игры при загрузке страницы
+        window.onload = initGame;
+    </script>
+</body>
+</html>
